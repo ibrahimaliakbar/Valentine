@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💘</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        color: #fff;
+        text-align: center;
+    }
+
+    .page {
+        display: none;
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .active {
+        display: flex;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 15px 30px;
+        margin: 10px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    .yes {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    .no {
+        background: #555;
+        color: white;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    .gifts {
+        display: grid;
+        grid-template-columns: repeat(2, 150px);
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .gift {
+        width: 150px;
+        height: 150px;
+        background: #ff4d6d;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .gift:hover {
+        transform: scale(1.1);
+    }
+
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .modal-content {
+        background: #fff;
+        color: #333;
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 500px;
+        text-align: left;
+    }
+
+    .close {
+        margin-top: 20px;
+        background: #ff4d6d;
+        color: white;
+        width: 100%;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+    <h1>Will you be my Valentine? 💖</h1>
+    <div>
+        <button class="yes" onclick="goTo('pageYes')">Yes 💘</button>
+        <button class="no" onclick="goTo('pageNo')">No 😐</button>
+    </div>
+</div>
+
+<!-- NO PAGE -->
+<div id="pageNo" class="page">
+    <h1>You chose wrong 😌</h1>
+    <p>Try again. You know the answer.</p>
+    <button class="yes" onclick="goTo('page1')">Go Back 💞</button>
+</div>
+
+<!-- YES PAGE -->
+<div id="pageYes" class="page">
+    <h1>You said YES 🥹💝</h1>
+    <p>Open your gifts 🎁</p>
+
+    <div class="gifts">
+        <div class="gift" onclick="openGift(1)">🎁</div>
+        <div class="gift" onclick="openGift(2)">🎁</div>
+        <div class="gift" onclick="openGift(3)">🎁</div>
+        <div class="gift" onclick="openGift(4)">🎁</div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content" id="modalContent"></div>
+</div>
+
+<script>
+function goTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+}
+
+function openGift(number) {
+    const modal = document.getElementById('modal');
+    const content = document.getElementById('modalContent');
+
+    let html = '';
+
+    if (number === 1) {
+        html = `
+            <h2>For You ❤️</h2>
+            <p>
+                You mean more to me than I know how to put into words.
+                You’re my safe place, my favorite thought, and the person
+                I want to choose every single day. Being with you feels like
+                home, and loving you is the easiest thing I’ve ever done.
+            </p>
+            <button class="close" onclick="closeModal()">Close</button>
+        `;
+    }
+
+    if (number === 2) {
+        html = `
+            <h2>Love Coupons 💌</h2>
+            <ul>
+                <li>🤍 Unlimited Free Hugs</li>
+                <li>💋 Unlimited Kisses</li>
+                <li>🫶 Whatever You Need, Anytime</li>
+                <li>👀 Extra Attention (no expiry)</li>
+                <li>🔥 Sexy Times (redeem whenever 😉)</li>
+            </ul>
+            <button class="close" onclick="closeModal()">Close</button>
+        `;
+    }
+
+    if (number === 3) {
+        html = `
+            <h2>A Promise 🌙</h2>
+            <p>
+                I promise to listen, to try, to learn, and to love you
+                in the ways you need. I’m not perfect, but my heart
+                is always yours.
+            </p>
+            <button class="close" onclick="closeModal()">Close</button>
+        `;
+    }
+
+    if (number === 4) {
+        html = `
+            <h2>Just Us 💞</h2>
+            <p>
+                This is for all the moments we haven’t lived yet —
+                late nights, soft laughs, deep talks, and everything
+                in between.
+            </p>
+            <button class="close" onclick="closeModal()">Close</button>
+        `;
+    }
+
+    content.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
