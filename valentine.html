@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: pink;
+    text-align: center;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.page.active {
+    display: flex;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.yes { background: red; color: white; }
+.no { background: gray; color: white; }
+
+.gifts {
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    gap: 20px;
+}
+
+.gift {
+    width: 120px;
+    height: 120px;
+    background: red;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+#popupBox {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="p1" class="page active">
+    <h1>Will you be my Valentine? 💘</h1>
+    <button class="yes" onclick="showPage('pYes')">Yes 💖</button>
+    <button class="no" onclick="showPage('pNo')">No 😐</button>
+</div>
+
+<!-- NO PAGE -->
+<div id="pNo" class="page">
+    <h1>You chose wrong 😌</h1>
+    <button class="yes" onclick="showPage('p1')">Try Again</button>
+</div>
+
+<!-- YES PAGE -->
+<div id="pYes" class="page">
+    <h1>You said YES 🥹</h1>
+    <p>Open your gifts 🎁</p>
+
+    <div class="gifts">
+        <div class="gift" onclick="openGift(1)">🎁</div>
+        <div class="gift" onclick="openGift(2)">🎁</div>
+        <div class="gift" onclick="openGift(3)">🎁</div>
+        <div class="gift" onclick="openGift(4)">🎁</div>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+    <div id="popupBox"></div>
+</div>
+
+<script>
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function openGift(n) {
+    let text = "";
+
+    if (n === 1) {
+        text = "<h2>For You ❤️</h2><p>You mean everything to me. Loving you is easy, natural, and something I choose every day.</p>";
+    }
+
+    if (n === 2) {
+        text = "<h2>Love Coupons 💌</h2><ul><li>🤍 Free Hugs</li><li>💋 Unlimited Kisses</li><li>🫶 Whatever You Need</li><li>👀 Extra Attention</li><li>🔥 Sexy Times 😉</li></ul>";
+    }
+
+    if (n === 3) {
+        text = "<h2>A Promise 🌙</h2><p>I promise to show up, listen, and love you the way you deserve.</p>";
+    }
+
+    if (n === 4) {
+        text = "<h2>Just Us 💞</h2><p>For all the moments we haven’t lived yet — together.</p>";
+    }
+
+    document.getElementById("popupBox").innerHTML =
+        text + "<br><br><button onclick='closePopup()'>Close</button>";
+
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
